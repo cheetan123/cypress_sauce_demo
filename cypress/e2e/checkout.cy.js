@@ -13,8 +13,17 @@ describe('Shopping Checkout', () => {
       cy.visit("/");
   });
 
+  const doLogin = () => {
+    cy.reload();
+    cy.fixture("login").then ((data) => {      
+      loginPage.setUsername(data.username);
+      loginPage.setPassword(data.password);
+    });
+    loginPage.clickLogin();
+  };
+
   it('Checkout Single Product', () => {
-    loginPage.doLogin();
+    doLogin();
     productPage.pageTitleValidation(text.products);
     productPage.navigateToProduct(text.productTShirt);
     productPage.addProductToCart();
@@ -33,7 +42,7 @@ describe('Shopping Checkout', () => {
   });
 
   it('Checkout Multiple Products', () => {
-    loginPage.doLogin();
+    doLogin();
     productPage.pageTitleValidation(text.products);
     productPage.navigateToProduct(text.productTShirt);
     productPage.addProductToCart();
@@ -56,7 +65,7 @@ describe('Shopping Checkout', () => {
   });
 
   it('Checkout Products From Products Page', () => {
-    loginPage.doLogin();
+    doLogin();
     productPage.pageTitleValidation(text.products);
     productPage.clickAddToCartFromProduct();
     productPage.clickCheckout();
@@ -72,7 +81,7 @@ describe('Shopping Checkout', () => {
   });
 
   it('Add Remove Multiple Products & Checkout', () => {
-    loginPage.doLogin();
+    doLogin();
     productPage.pageTitleValidation(text.products);
     productPage.navigateToProduct(text.productTShirt);
     productPage.addProductToCart();

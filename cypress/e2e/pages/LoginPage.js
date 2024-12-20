@@ -6,14 +6,17 @@ class LoginPage {
         //test constructor
     }
 
-    doLogin = () => {
-        cy.reload();
-        cy.fixture("login").then ((data) => {
-            cy.get(login.usernameTxtBox).type(data.username);
-            cy.get(login.passwordTextBox).type(data.password);
-            cy.get(login.loginBtn).click();
-        });
-    };
+    setUsername(username) {
+        cy.get(login.usernameTxtBox).type(username);
+    }
+
+    setPassword(password) {
+        cy.get(login.passwordTextBox).type(password);
+    }
+
+    clickLogin() {
+        cy.get(login.loginBtn).click();
+    }
 
     verifyLoginPage = (loginBtn) => {
         cy.get(loginBtn).should("be.visible");
