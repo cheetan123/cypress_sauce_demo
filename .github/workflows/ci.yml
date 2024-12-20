@@ -10,5 +10,33 @@ jobs:
         uses: actions/checkout@v4
       # Install npm dependencies, cache them correctly
       # and run all Cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
+      # - name: Cypress run
+      #   uses: cypress-io/github-action@v6
+
+      - name: Chrome headless
+        uses: ./
+        with:
+          # Print information about the system and current environment
+          # including detected browsers
+          # which are pre-installed in GitHub-hosted runners
+          # see https://on.cypress.io/command-line#cypress-info
+          # We do not need the build parameter to build an app here
+          # because the remote https://example.cypress.io site
+          # is already built and running, and so for convenience
+          # we repurpose the build parameter to get cypress info instead.
+          build: npx cypress info
+          working-directory: examples/browser
+          browser: chrome
+          summary-title: 'Chrome headless'
+
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+      # Test run video was always captured, so this action uses "always()" condition
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
