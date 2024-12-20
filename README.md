@@ -11,6 +11,7 @@ To run the test use following command
 - Click on reload button aligned with cypress-run
 - ![image](https://github.com/user-attachments/assets/a6d094ac-4f36-49aa-b8b8-7b79f73103bc)
 
+
 Docker on Local
 ============================
 
