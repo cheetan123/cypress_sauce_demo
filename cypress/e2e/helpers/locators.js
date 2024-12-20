@@ -6,7 +6,7 @@ export const login = {
 
 export const pages = {
     "title": ".title",
-    "productList": ".inventory_item_name ",
+    "productsList": ".inventory_item_name ",
     "addToCartBtn": "#add-to-cart",
     "shoppingCartBtn": ".shopping_cart_link",
     "removeProductBtn": "#remove",
