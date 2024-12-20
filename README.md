@@ -22,7 +22,7 @@ Docker on Local
 - Clone the repo
 - Navigate to DemoSauceLab directory
 - Run the below command to run default browser
-- [Command] docker run -it -v $PWD:/e2e -w /e2e cypress/included:latest --spec cypress/e2e/*.js
+[Command] docker run -it -v $PWD:/e2e -w /e2e cypress/included:latest --spec cypress/e2e/*.js
 
 **GUI / Headed**
 ============================
@@ -42,4 +42,5 @@ or
 ====================================
 
 Follow the video to resolve the for page load
+
 https://www.youtube.com/watch?v=AdcBb6CAofs
