@@ -1,49 +1,42 @@
-import { text } from '../e2e/helpers/locators';
+import { pages, text } from '../e2e/helpers/locators';
 import LoginPage from './pages/LoginPage';
 import ProductPage from './pages/ProductsPage';
 import CheckoutPage from './pages/CheckoutPage';
+import CommonHelper from './pages/CommonHelper';
 
 describe('Shopping Checkout', () => {
 
   var loginPage = new LoginPage();
   var productPage = new ProductPage();
   var checkoutPage = new CheckoutPage();
+  var commonHelper = new CommonHelper();
   
   beforeEach(() => {
       cy.visit("/");
   });
 
-  const doLogin = () => {
-    cy.reload();
-    cy.fixture("login").then ((data) => {      
-      loginPage.setUsername(data.username);
-      loginPage.setPassword(data.password);
-    });
-    loginPage.clickLogin();
-  };
-
   it('Checkout Single Product', () => {
-    doLogin();
-    productPage.pageTitleValidation(text.products);
+    loginPage.doLogin();
+    commonHelper.validation(pages.title, text.products);
     productPage.navigateToProduct(text.productTShirt);
     productPage.addProductToCart();
     productPage.backToProduct();
-    productPage.pageTitleValidation(text.products);
+    commonHelper.validation(pages.title, text.products);
     productPage.clickCheckout();
-    productPage.pageTitleValidation(text.cart);
+    commonHelper.validation(pages.title, text.cart);
     checkoutPage.verifyProductCount(1);
     productPage.productCheckout();
-    productPage.pageTitleValidation(text.checkoutInfo);
+    commonHelper.validation(pages.title, text.checkoutInfo);
     checkoutPage.billingDetails();
-    checkoutPage.checkoutOverview();
+    checkoutPage.checkoutOverview(pages.title, text.checkoutOverview);
     checkoutPage.checkoutCompleted(text.orderCompleteGreetings, text.orderCompleteDetails);
-    productPage.pageTitleValidation(text.products);
+    commonHelper.validation(pages.title, text.products);
     productPage.logout();
   });
 
   it('Checkout Multiple Products', () => {
-    doLogin();
-    productPage.pageTitleValidation(text.products);
+    loginPage.doLogin();
+    commonHelper.validation(pages.title, text.products);
     productPage.navigateToProduct(text.productTShirt);
     productPage.addProductToCart();
     productPage.backToProduct();
@@ -53,36 +46,36 @@ describe('Shopping Checkout', () => {
     productPage.navigateToProduct(text.productBackpack);
     productPage.addProductToCart();
     productPage.clickCheckout();
-    productPage.pageTitleValidation(text.cart);
+    commonHelper.validation(pages.title, text.cart);
     checkoutPage.verifyProductCount(3);
     productPage.productCheckout();
-    productPage.pageTitleValidation(text.checkoutInfo);
+    commonHelper.validation(pages.title, text.checkoutInfo);
     checkoutPage.billingDetails();
-    checkoutPage.checkoutOverview();
+    checkoutPage.checkoutOverview(pages.title, text.checkoutOverview);
     checkoutPage.checkoutCompleted(text.orderCompleteGreetings, text.orderCompleteDetails);
-    productPage.pageTitleValidation(text.products);
+    commonHelper.validation(pages.title, text.products);
     productPage.logout();
   });
 
   it('Checkout Products From Products Page', () => {
-    doLogin();
-    productPage.pageTitleValidation(text.products);
+    loginPage.doLogin();
+    commonHelper.validation(pages.title, text.products);
     productPage.clickAddToCartFromProduct();
     productPage.clickCheckout();
-    productPage.pageTitleValidation(text.cart);
+    commonHelper.validation(pages.title, text.cart);
     checkoutPage.verifyProductCount(6);
     productPage.productCheckout();
-    productPage.pageTitleValidation(text.checkoutInfo);
+    commonHelper.validation(pages.title, text.checkoutInfo);
     checkoutPage.billingDetails();
-    checkoutPage.checkoutOverview();
+    checkoutPage.checkoutOverview(pages.title, text.checkoutOverview);
     checkoutPage.checkoutCompleted(text.orderCompleteGreetings, text.orderCompleteDetails);
-    productPage.pageTitleValidation(text.products);
+    commonHelper.validation(pages.title, text.products);
     productPage.logout();
   });
 
   it('Add Remove Multiple Products & Checkout', () => {
-    doLogin();
-    productPage.pageTitleValidation(text.products);
+    loginPage.doLogin();
+    commonHelper.validation(pages.title, text.products);
     productPage.navigateToProduct(text.productTShirt);
     productPage.addProductToCart();
     productPage.backToProduct();
@@ -92,18 +85,18 @@ describe('Shopping Checkout', () => {
     productPage.navigateToProduct(text.productBackpack);
     productPage.addProductToCart();
     productPage.clickCheckout();
-    productPage.pageTitleValidation(text.cart);
+    commonHelper.validation(pages.title, text.cart);
     productPage.navigateToProduct(text.productBackpack);
     productPage.removeProductFromProductPage();
     productPage.clickCheckout();
-    productPage.pageTitleValidation(text.cart);
+    commonHelper.validation(pages.title, text.cart);
     checkoutPage.verifyProductCount(2);
     productPage.productCheckout();
-    productPage.pageTitleValidation(text.checkoutInfo);
+    commonHelper.validation(pages.title, text.checkoutInfo);
     checkoutPage.billingDetails();
-    checkoutPage.checkoutOverview();
+    checkoutPage.checkoutOverview(pages.title, text.checkoutOverview);
     checkoutPage.checkoutCompleted(text.orderCompleteGreetings, text.orderCompleteDetails);
-    productPage.pageTitleValidation(text.products);
+    commonHelper.validation(pages.title, text.products);
     productPage.logout();
   });
 

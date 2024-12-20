@@ -1,12 +1,15 @@
 import { login } from '../helpers/locators';
+import CommonHelper from './CommonHelper';
 
-class LoginPage {
+class LoginPage extends CommonHelper{
 
     constructor() {
-        //test constructor
+        super();
+        this.commonHelper = new CommonHelper();
     }
 
     setUsername(username) {
+
         cy.get(login.usernameTxtBox).type(username);
     }
 
@@ -15,13 +18,22 @@ class LoginPage {
     }
 
     clickLogin() {
-        cy.get(login.loginBtn).click();
+        this.commonHelper.clickBtnOrLink(login.loginBtn);
     }
 
     verifyLoginPage = (loginBtn) => {
         cy.get(loginBtn).should("be.visible");
         cy.get(loginBtn).should("exist");
     }
+
+    doLogin = () => {
+        cy.reload();
+        cy.fixture("login").then ((data) => {      
+          this.setUsername(data.username);
+          this.setPassword(data.password);
+        });
+        this.clickLogin();
+      };
 }
 
 export default LoginPage;

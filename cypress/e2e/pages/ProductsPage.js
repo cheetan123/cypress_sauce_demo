@@ -1,14 +1,13 @@
 import { pages,login } from '../helpers/locators';
+import CommonHelper from './CommonHelper';
 import LoginPage from './LoginPage';
 
-class ProductsPage {
+class ProductsPage extends CommonHelper {
 
   constructor() {
+    super();
     this.loginPage = new LoginPage();
-  }
-
-  pageTitleValidation = (title) => {
-    cy.get(pages.title).should('have.text', title);
+    this.commonHelper = new CommonHelper();
   }
 
   navigateToProduct = (productName) => {
@@ -18,28 +17,28 @@ class ProductsPage {
   }
 
   addProductToCart = () => {
-    cy.get(pages.addToCartBtn).click();
+    this.commonHelper.clickBtnOrLink(pages.addToCartBtn);
   }
 
   clickCheckout = () => {
-    cy.get(pages.shoppingCartBtn).click();
+    this.commonHelper.clickBtnOrLink(pages.shoppingCartBtn);
   }
 
   removeProductFromProductPage = () => {
-    cy.get(pages.removeProductBtn).click();
+    this.commonHelper.clickBtnOrLink(pages.removeProductBtn);
   }
   
   productCheckout = () => {
-    cy.get(pages.checkoutBtn).click();
+    this.commonHelper.clickBtnOrLink(pages.checkoutBtn);
   }
 
   backToProduct = () => {
-    cy.get(pages.backToProductPageLnk).click();
+    this.commonHelper.clickBtnOrLink(pages.backToProductPageLnk);
   }
 
   logout = () => {
-    cy.get(pages.menu).click();
-    cy.get(pages.logoutlnk).click();
+    this.commonHelper.clickBtnOrLink(pages.menu);
+    this.commonHelper.clickBtnOrLink(pages.logoutlnk);
     this.loginPage.verifyLoginPage(login.loginBtn)
   }
 
