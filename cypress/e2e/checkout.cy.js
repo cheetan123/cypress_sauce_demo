@@ -3,12 +3,11 @@ import { login, pages, text } from '../e2e/helpers/locators';
 describe('Shopping Checkout', () => {
   
   beforeEach(() => {
-    cy.fixture("login").then ((data) => {
-      cy.visit(data.url);
-    });
+      cy.visit("/");
   });
 
   const doLogin = () => {
+    cy.reload();
     cy.fixture("login").then ((data) => {
       cy.get(login.usernameTxtBox).type(data.username);
       cy.get(login.passwordTextBox).type(data.password);
@@ -129,7 +128,7 @@ describe('Shopping Checkout', () => {
     logout();
   });
 
-  it.skip('Checkout Products From Products Page', () => {
+  it('Checkout Products From Products Page', () => {
     doLogin();
     pageTitleValidation(text.products);
     clickAddToCartFromProduct();
@@ -145,7 +144,7 @@ describe('Shopping Checkout', () => {
     logout();
   });
 
-  it.skip('Add Remove Multiple Products & Checkout', () => {
+  it('Add Remove Multiple Products & Checkout', () => {
     doLogin();
     pageTitleValidation(text.products);
     navigateToProduct(text.productTShirt);
