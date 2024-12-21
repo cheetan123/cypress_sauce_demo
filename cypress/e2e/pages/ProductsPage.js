@@ -48,6 +48,34 @@ class ProductsPage extends CommonHelper {
             cy.get(pages.addToCartBtns).eq(index).click();
         });
   }
+
+  generateIndex = (len) => {
+    return Math.floor(Math.random() * ((len-1) - 0 + 1)) + 0;
+  }
+
+  selectRandomProducts = (locator) => {
+    const indexes = [];
+    cy.get(locator)
+    .its('length')
+    .then((len) => {
+      var count = 0;
+      var index = this.generateIndex(len);
+      indexes.push(index);
+      while(count < 3) {  
+        var nextIndex = Math.floor(Math.random() * ((len-1) - 0 + 1)) + 0;
+        if(!indexes.includes(nextIndex)) {
+          cy.get(locator)
+            .eq(index)
+            .should('have.text', 'Add to cart')
+            .click()
+
+            index = nextIndex;
+            indexes.push(index);
+            count = count + 1;
+        }
+      }
+    })
+  }
 }
 
 export default ProductsPage;

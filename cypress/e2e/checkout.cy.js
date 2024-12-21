@@ -15,6 +15,22 @@ describe('Shopping Checkout', () => {
       cy.visit("/");
   });
 
+  it.only('Checkout Three Random Products From Products Page', () => {
+    loginPage.doLogin();
+    commonHelper.validation(pages.title, text.products);
+    productPage.selectRandomProducts(pages.addToCartBtns);
+    productPage.clickCheckout();
+    commonHelper.validation(pages.title, text.cart);
+    checkoutPage.verifyProductCount(3);
+    productPage.productCheckout();
+    commonHelper.validation(pages.title, text.checkoutInfo);
+    checkoutPage.billingDetails();
+    checkoutPage.checkoutOverview(pages.title, text.checkoutOverview);
+    checkoutPage.checkoutCompleted(text.orderCompleteGreetings, text.orderCompleteDetails);
+    commonHelper.validation(pages.title, text.products);
+    productPage.logout();
+  });
+
   it('Checkout Single Product', () => {
     loginPage.doLogin();
     commonHelper.validation(pages.title, text.products);
@@ -48,22 +64,6 @@ describe('Shopping Checkout', () => {
     productPage.clickCheckout();
     commonHelper.validation(pages.title, text.cart);
     checkoutPage.verifyProductCount(3);
-    productPage.productCheckout();
-    commonHelper.validation(pages.title, text.checkoutInfo);
-    checkoutPage.billingDetails();
-    checkoutPage.checkoutOverview(pages.title, text.checkoutOverview);
-    checkoutPage.checkoutCompleted(text.orderCompleteGreetings, text.orderCompleteDetails);
-    commonHelper.validation(pages.title, text.products);
-    productPage.logout();
-  });
-
-  it('Checkout Products From Products Page', () => {
-    loginPage.doLogin();
-    commonHelper.validation(pages.title, text.products);
-    productPage.clickAddToCartFromProduct();
-    productPage.clickCheckout();
-    commonHelper.validation(pages.title, text.cart);
-    checkoutPage.verifyProductCount(6);
     productPage.productCheckout();
     commonHelper.validation(pages.title, text.checkoutInfo);
     checkoutPage.billingDetails();
